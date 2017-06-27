@@ -39,16 +39,16 @@ List *makeNode(char key)
 }
 List* reverse(List *n)
 {
-	if(!n || !n->next) //ÅÐ¶ÏÁ´±íÊÇ·ñÎª¿Õ£¬Îª¿Õ¼´ÍË³ö¡£
+	if(!n || !n->next) //åˆ¤æ–­é“¾è¡¨æ˜¯å¦ä¸ºç©ºï¼Œä¸ºç©ºå³é€€å‡ºã€‚
 	{
 		return n;
 	}
-	List *head= n->next;  //±£´æÍ·½áµã
-	List *cur = n;  //µ±Ç°´¦Àí½áµã
+	List *head= n->next;  //ä¿å­˜å¤´ç»“ç‚¹
+	List *cur = n;  //å½“å‰å¤„ç†ç»“ç‚¹
 	List *tmp;
 	//printf("cur->key = %d\n",cur->key);
-	cur->next = NULL; //Í·½áµãµÄÖ¸ÕëÖ¸¿Õ£¬×ª»»ºó±äÎ²½áµã
-	while ( NULL != head->next ) //Ñ­»·Ö±µ½ cur.next Îª¿Õ
+	cur->next = NULL; //å¤´ç»“ç‚¹çš„æŒ‡é’ˆæŒ‡ç©ºï¼Œè½¬æ¢åŽå˜å°¾ç»“ç‚¹
+	while ( NULL != head->next ) //å¾ªçŽ¯ç›´åˆ° cur.next ä¸ºç©º
 	{
 		tmp = head->next;
 		head->next = cur;
@@ -57,7 +57,7 @@ List* reverse(List *n)
 		//printf("cur->key = %d\n",cur->key);
 	}
 	head->next = cur;
-	return myhead = head;  //f ·µ»ØÍ·Ö¸Õëm
+	return myhead = head;  //f è¿”å›žå¤´æŒ‡é’ˆm
 }
 void showAll()
 {
@@ -67,6 +67,17 @@ void showAll()
 		}
 
 
+}
+
+List * reverseLink(List *Head)//é€’å½’ç®—æ³•å®žçŽ°å•é“¾è¡¨ç¿»è½¬
+{
+	if(Head->next == NULL)
+		return Head;
+	
+	List *rHead = reverseLink(Head->next);
+	Head->next->next = Head;
+	Head->next = NULL;
+	return rHead;
 }
 int main(int argc, char *argv[])
 {
@@ -82,7 +93,8 @@ int main(int argc, char *argv[])
 
 	showAll();
 	cout << endl;
-	reverse(myhead);
+	//reverse(myhead);
+	reverseLink(myhead);
 	showAll();
 
 	return 0;
